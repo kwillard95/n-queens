@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -115,13 +115,32 @@
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
+
+    //iterate through object keys, look at each key value at colIndex and see if its equal to 1
+    //if its equal to one, increase the counter
+    //if counter is greater than one, return true
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var counter = 0;
+      for (var key in this.attributes) {
+        if (this.attributes[key][colIndex] === 1) {
+          counter++;
+        }
+      }
+      if (counter > 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.attributes[0].length; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
