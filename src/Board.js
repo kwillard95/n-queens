@@ -78,13 +78,35 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
+
+    //Input: row index
+    //Output: boolean
+    //Check to see if rowIndex has 1 more than once
+
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var counter = 0;
+      for (var i = 0; i < rowIndex.length; i++) {
+        if (rowIndex[i] === 1) {
+          counter++;
+        }
+      }
+      if (counter > 1) {
+        //if 1 occurred more than once
+        return true;
+      } else {
+        //if 1 occurred one or zero times return false
+        return false;
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      for (var key in this.attributes) {
+        if (this.hasRowConflictAt(this.attributes[key])) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
