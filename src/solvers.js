@@ -35,18 +35,16 @@ window.countNRooksSolutions = function(n) {
 
   var solutionCount = 0; //fixme
   var board = new Board({ n: n });
-  console.log(board);
-  console.log(1);
+
   var recurse = function(row) {
     //make matrix  board.rows()[row]
-    if (row === n - 1) {
+    if (row === n) {
       solutionCount++;
       return;
     }
     for (var i = 0; i < n; i++) {
       board.rows()[row][i] = 1;
-      console.log(board);
-      if (board.hasAnyRookConflicts() === false) {
+      if (board.hasAnyRooksConflicts() === false) {
         recurse(row + 1);
       }
       board.rows()[row][i] = 0;
@@ -70,14 +68,25 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+  var board = new Board({ n: n });
 
-  if (n === 0) {
-    return 1;
-  }
-  return n * countNQueensSolutions(n - 1);
-
-
+  var recurse = function(row) {
+    //make matrix  board.rows()[row]
+    if (row === n) {
+      solutionCount++;
+      return;
+    }
+    for (var i = 0; i < n; i++) {
+      board.rows()[row][i] = 1;
+      if (board.hasAnyQueensConflicts() === false) {
+        recurse(row + 1);
+      }
+      board.rows()[row][i] = 0;
+    }
+  };
+  recurse(0);
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  return solutionCount;
 };
 
